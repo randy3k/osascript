@@ -76,13 +76,15 @@ set detected to false
 if my appIsRunning("Terminal") then
 	tell application "System Events" to tell process "Terminal"
 		repeat with w in windows
+		try
 			set thetitle to name of w
 			set termfolder to my urldecode(value of attribute "AXDocument" of w)
-			if termfolder is thefolder and thetitle contains "bash" then
+			if termfolder is thefolder and (thetitle contains "bash" or thetitle contains "zsh") then
 				set detected to true
 				perform action "AXRaise" of w
 				exit repeat
 			end if
+			end try
 		end repeat
 	end tell
 	tell application "Terminal"
