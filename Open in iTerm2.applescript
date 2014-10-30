@@ -108,7 +108,6 @@ if my appIsRunning("iTerm") then
 				tell the current terminal to launch session "Default"
 			end if
 			activate
-			delay 0.4
 			tell the first terminal
 				tell the current session
 					write text "cd " & (do shell script "printf %q " & quoted form of thefolder)
@@ -120,7 +119,6 @@ else
 	log "iTerm is not running"
 	tell application "iTerm"
 		activate
-		delay 0.4
 		tell the first terminal
 			tell the current session
 				write text "cd " & (do shell script "printf %q " & quoted form of thefolder)
