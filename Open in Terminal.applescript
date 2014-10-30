@@ -1,5 +1,3 @@
-property newLine : (ASCII character 10)
-
 on appIsRunning(appName)
 	tell application "System Events" to (name of processes) contains appName
 end appIsRunning
@@ -43,16 +41,6 @@ if thefrontApp is "Finder" then
 			set thefolder to do shell script "echo ~/"
 		end try
 	end tell
-else if thefrontApp is "Atom" then
-	tell application "System Events" to tell process "Atom"
-		set thetitle to ((name of window 1) as string)
-		set thepath to my sed(thetitle, "s|.* - /|/|")
-		if my isDirectory(thepath) then
-			set thefolder to thepath & "/"
-		else
-			set thefolder to (do shell script "dirname " & quoted form of thepath) & "/"
-		end if
-	end tell
 else
 	try
 		set thefrontWinDoc to frontWinDoc(thefrontApp)
@@ -76,14 +64,14 @@ set detected to false
 if my appIsRunning("Terminal") then
 	tell application "System Events" to tell process "Terminal"
 		repeat with w in windows
-		try
-			set thetitle to name of w
-			set termfolder to my urldecode(value of attribute "AXDocument" of w)
-			if termfolder is thefolder and (thetitle contains "bash" or thetitle contains "zsh") then
-				set detected to true
-				perform action "AXRaise" of w
-				exit repeat
-			end if
+			try
+				set thetitle to name of w
+				set termfolder to my urldecode(value of attribute "AXDocument" of w)
+				if termfolder is thefolder and (thetitle contains "bash" or thetitle contains "zsh") then
+					set detected to true
+					perform action "AXRaise" of w
+					exit repeat
+				end if
 			end try
 		end repeat
 	end tell
@@ -97,4 +85,3 @@ if my appIsRunning("Terminal") then
 else
 	do shell script "open -a terminal " & quoted form of thefolder
 end if
-
