@@ -56,13 +56,13 @@ tell application "System Events"
 			set midX to drawWidth * 0.5 + (random number from -50 to 50)
 			set midY to drawHeight * 0.5 + (random number from -50 to 50)
 		else if my match(windowWidth, windowHeight, 0.4, 0.5) then
-			set windowWidth to drawWidth * 0.5
-			set windowHeight to drawHeight * 0.6
+			set windowWidth to drawWidth * 0.55
+			set windowHeight to drawHeight * 0.65
 			set midX to drawWidth * 0.5 + (random number from -50 to 50)
 			set midY to drawHeight * 0.5 + (random number from -50 to 50)
-		else if my match(windowWidth, windowHeight, 0.5, 0.6) then
-			set windowWidth to drawWidth * 0.6
-			set windowHeight to drawHeight * 0.7
+		else if my match(windowWidth, windowHeight, 0.55, 0.65) then
+			set windowWidth to drawWidth * 0.7
+			set windowHeight to drawHeight * 0.8
 			set midX to drawWidth * 0.5 + (random number from -50 to 50)
 			set midY to drawHeight * 0.5 + (random number from -50 to 50)
 		else
