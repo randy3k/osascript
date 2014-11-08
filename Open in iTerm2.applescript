@@ -77,8 +77,11 @@ set iTermIsRunning to my appIsRunning("iTerm2")
 if iTermIsRunning then
 	tell application "iTerm"
 		repeat with w in terminal windows
-			repeat with t in tabs of w
-				repeat with s in sessions of t
+			set ntabs to the count (tabs of w)
+			if ntabs is 0 then exit repeat
+			repeat with i from ntabs to 1 by -1
+				set t to item i of tabs of w
+				repeat with s in sessions of item i of tabs of w
 					set the_name to get name of s
 					set tty_name to do shell script "basename " & (get tty of s)
 					set working_dir to my pwd_tty(tty_name)
@@ -87,10 +90,10 @@ if iTermIsRunning then
 					log tty_name
 					if working_dir & "/" is thefolder and my zshIsCurrent(tty_name) then
 						activate
-						select t
+						select item i of tabs of w
 						select s
 						if (count of terminal windows) > 1 then
-										delay 0.2
+							delay 0.2
 							tell application "System Events"
 								tell process "iTerm2"
 									set frontmost to true
