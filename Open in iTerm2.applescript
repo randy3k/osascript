@@ -1,3 +1,5 @@
+-- for iTerm 2.9
+
 on appIsRunning(appName)
 	tell application "System Events" to (name of processes) contains appName
 end appIsRunning
@@ -69,61 +71,54 @@ else
 	end try
 end if
 
-set detected to false
+set done to false
 --display dialog thefolder
-
-if my appIsRunning("iTerm") then
+set iTermIsRunning to my appIsRunning("iTerm2")
+if iTermIsRunning then
 	tell application "iTerm"
-		repeat with t in terminals
-			repeat with s in sessions of t
-				set the_name to get name of s
-				set tty_name to do shell script "basename " & (get tty of s)
-				set working_dir to my pwd_tty(tty_name)
-				log working_dir
-				log the_name
-				log tty_name
-				if working_dir & "/" is thefolder and my zshIsCurrent(tty_name) then
-					activate
-					select s
-					set detected to true
-					exit repeat
-				end if
+		repeat with w in terminal windows
+			repeat with t in tabs of w
+				repeat with s in sessions of t
+					set the_name to get name of s
+					set tty_name to do shell script "basename " & (get tty of s)
+					set working_dir to my pwd_tty(tty_name)
+					log working_dir
+					log the_name
+					log tty_name
+					if working_dir & "/" is thefolder and my zshIsCurrent(tty_name) then
+						activate
+						select t
+						select s
+						if (count of terminal windows) > 1 then
+										delay 0.2
+							tell application "System Events"
+								tell process "iTerm2"
+									set frontmost to true
+									perform action "AXRaise" of (first window whose title is the_name)
+								end tell
+							end tell
+						end if
+						set done to true
+						exit repeat
+					end if
+					if done then exit repeat
+				end repeat
+				if done then exit repeat
 			end repeat
 		end repeat
 	end tell
-	
-	if detected then
-		delay 0.2
-		tell application "System Events"
-			tell process "iTerm"
-				set frontmost to true
-				perform action "AXRaise" of (first window whose title is the_name)
-			end tell
-		end tell
-	else
-		tell application "iTerm"
-			if (count of (terminals)) is 0 then
-				tell (make new terminal) to launch session "Default"
-			else
-				tell the current terminal to launch session "Default"
-			end if
-			activate
-			tell the first terminal
-				tell the current session
-					write text "cd " & (do shell script "printf %q " & quoted form of thefolder)
-				end tell
-			end tell
-		end tell
-	end if
-else
-	log "iTerm is not running"
+end if
+
+log done
+if not done then
 	tell application "iTerm"
-		activate
-		tell the first terminal
-			tell the current session
-				write text "cd " & (do shell script "printf %q " & quoted form of thefolder)
-			end tell
+		if (count of (terminal windows)) is 0 then
+			create window with default profile
+		else
+			if iTermIsRunning then tell current window to create tab with default profile
+		end if
+		tell current window to tell the current session
+			write text "cd " & (do shell script "printf %q " & quoted form of thefolder)
 		end tell
 	end tell
-	
 end if
