@@ -41,7 +41,7 @@ log {drawWidth, drawHeight, originX, originY}
 
 on match(windowWidth, windowHeight, w, h)
 	set ret to ((windowWidth - (my drawWidth) * w) ^ 2 + (windowHeight - (my drawHeight) * h) ^ 2) ^ 0.5
-	return ret ² 10
+	return ret ² 25
 end match
 
 tell application "System Events"
@@ -50,7 +50,7 @@ tell application "System Events"
 		set windowWidth to item 1 of windowResolution
 		set windowHeight to item 2 of windowResolution
 		
-		if my match(windowWidth, drawHeight, 1, 1) then
+		if my match(windowWidth, windowHeight, 1, 1) then
 			set windowWidth to drawWidth * 0.4
 			set windowHeight to drawHeight * 0.5
 			set midX to drawWidth * 0.5 + (random number from -50 to 50)

@@ -41,7 +41,7 @@ log {drawWidth, drawHeight, originX, originY}
 
 on match(windowWidth, windowHeight, w, h)
 	set ret to ((windowWidth - (my drawWidth) * w) ^ 2 + (windowHeight - (my drawHeight) * h) ^ 2) ^ 0.5
-	return ret ² 10
+	return ret ² 20
 end match
 
 tell application "System Events"

@@ -54,14 +54,16 @@ tell application "System Events"
 		if my match(windowWidth, 0.6) and my match(windowX - originX, 0.4) then
 			set the size of the first window to {drawWidth * 0.5, drawHeight}
 			set the position of the first window to {originX + drawWidth * 0.5, originY}
-		else if my match(windowWidth, 0.5) and my match(windowX - originX, 0.5) then
-			set the size of the first window to {drawWidth * 0.4, drawHeight}
-			set the position of the first window to {originX + drawWidth * 0.6, originY}
-		else
+		else if my match(windowWidth, 0.4) and my match(windowX - originX, 0.6) then
 			set the size of the first window to {drawWidth * 0.6, drawHeight}
 			set the position of the first window to {originX + drawWidth * 0.4, originY}
-			-- since the size may not be corrent for some position, do sizing again
+			-- since the size may not be correct for some position, do sizing again
 			set the size of the first window to {drawWidth * 0.6, drawHeight}
+		else
+			set the size of the first window to {drawWidth * 0.4, drawHeight}
+			set the position of the first window to {originX + drawWidth * 0.6, originY}
+			-- since the size may not be correct for some position, do sizing again
+			set the size of the first window to {drawWidth * 0.4, drawHeight}			
 		end if
 	end tell
 end tell
