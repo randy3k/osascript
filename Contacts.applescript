@@ -35,7 +35,7 @@ tell application "Contacts"
 			if formatpn is "Yes" then
 				repeat with j from 1 to phoneCount
 					set thephone to phone j of thePerson
-
+					
 					set phonenum to ((value of thephone) as string)
 					
 					# reformat the number
