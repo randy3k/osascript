@@ -17,7 +17,9 @@ tell application "System Events" to tell (process 1 where frontmost is true)
 	set windowResolution to size of the first window
 	set windowPos to position of the first window
 	set windowWidth to item 1 of windowResolution
+	set windowHeight to item 2 of windowResolution
 	set windowX to item 1 of windowPos
+	set windowY to item 2 of windowPos
 	
 	if my approx(windowX + windowWidth, actualWidth) then
 		tell application "Finder" to set thefolder to (container of (path to me)) as text
@@ -26,15 +28,22 @@ tell application "System Events" to tell (process 1 where frontmost is true)
 	end if
 	
 	if my approx(windowWidth, 0.6 * screenWidth) and windowX is equal to originX then
-		set the size of the first window to {screenWidth * 0.5, screenHeight}
-		set the position of the first window to {originX, originY}
+		set the size of the first window to {screenWidth * 0.5, windowHeight}
+		set the position of the first window to {originX, windowY}
+		
 	else if my approx(windowWidth, 0.5 * screenWidth) and windowX is equal to originX then
-		set the size of the first window to {screenWidth * 0.4, screenHeight}
-		set the position of the first window to {originX, originY}
+		set the size of the first window to {screenWidth * 0.4, windowHeight}
+		set the position of the first window to {originX, windowY}
+		
+	else if my approx(windowWidth, 0.4 * screenWidth) and windowX is equal to originX then
+		set the position of the first window to {originX, windowY}
+		set the size of the first window to {screenWidth * 0.6, windowHeight}
+		
 	else
 		set the size of the first window to {screenWidth * 0.6, screenHeight}
 		set the position of the first window to {originX, originY}
 		-- since the size may not be corrent for some position, do sizing again
 		set the size of the first window to {screenWidth * 0.6, screenHeight}
+		
 	end if
 end tell
