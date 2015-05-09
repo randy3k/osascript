@@ -6,41 +6,16 @@ end frontApp
 
 set thefrontApp to frontApp()
 
-tell application "Finder"
-	set screenResolution to bounds of window of desktop
-end tell
-
-set screenWidth to item 3 of screenResolution
-set screenHeight to item 4 of screenResolution
-set drawWidth to screenWidth
-set drawHeight to screenHeight
-set originX to 0
-set originY to 0
-
-tell application "System Events"
-	tell process "Dock"
-		set dock_dimensions to size in list 1
-		log dock_dimensions
-		set dock_width to item 1 of dock_dimensions
-		set dock_height to item 2 of dock_dimensions
-	end tell
-	tell dock preferences
-		if autohide is false then
-			if screen edge is bottom then
-				set drawHeight to drawHeight - dock_height
-			else if screen edge is left then
-				set drawWidth to drawWidth - dock_width
-				set originX to dock_width
-			else if screen edge is right then
-				set drawWidth to drawWidth - dock_width
-			end if
-		end if
-	end tell
-end tell
-log {drawWidth, drawHeight, originX, originY}
+use framework "CoreGraphics"
+use scripting additions
+set sizes to item 1 of (current application's NSScreen's mainScreen's visibleFrame as list)
+set screenWidth to width of |size| of sizes
+set screenHeight to height of |size| of sizes
+set originX to x of origin of sizes
+set originY to y of origin of sizes
 
 on match(windowWidth, w)
-	set ret to ((windowWidth - (my drawWidth) * w) ^ 2) ^ 0.5
+	set ret to ((windowWidth - (my screenWidth) * w) ^ 2) ^ 0.5
 	return ret is less than or equal to 10
 end match
 
@@ -50,20 +25,20 @@ tell application "System Events"
 		set windowPos to position of the first window
 		set windowWidth to item 1 of windowResolution
 		set windowX to item 1 of windowPos
-		log {windowX, originX + drawWidth * 0.6}
+		log {windowX, originX + screenWidth * 0.6}
 		if my match(windowWidth, 0.6) and my match(windowX - originX, 0.4) then
-			set the size of the first window to {drawWidth * 0.5, drawHeight}
-			set the position of the first window to {originX + drawWidth * 0.5, originY}
+			set the size of the first window to {screenWidth * 0.5, screenHeight}
+			set the position of the first window to {originX + screenWidth * 0.5, originY}
 		else if my match(windowWidth, 0.4) and my match(windowX - originX, 0.6) then
-			set the size of the first window to {drawWidth * 0.6, drawHeight}
-			set the position of the first window to {originX + drawWidth * 0.4, originY}
+			set the size of the first window to {screenWidth * 0.6, screenHeight}
+			set the position of the first window to {originX + screenWidth * 0.4, originY}
 			-- since the size may not be correct for some position, do sizing again
-			set the size of the first window to {drawWidth * 0.6, drawHeight}
+			set the size of the first window to {screenWidth * 0.6, screenHeight}
 		else
-			set the size of the first window to {drawWidth * 0.4, drawHeight}
-			set the position of the first window to {originX + drawWidth * 0.6, originY}
+			set the size of the first window to {screenWidth * 0.4, screenHeight}
+			set the position of the first window to {originX + screenWidth * 0.6, originY}
 			-- since the size may not be correct for some position, do sizing again
-			set the size of the first window to {drawWidth * 0.4, drawHeight}			
+			set the size of the first window to {screenWidth * 0.4, screenHeight}
 		end if
 	end tell
 end tell
