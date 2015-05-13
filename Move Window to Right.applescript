@@ -27,17 +27,17 @@ tell application "System Events" to tell (process 1 where frontmost is true)
 		return
 	end if
 	
-	if my approx(windowWidth, 0.6 * screenWidth) and my approx(windowX + windowWidth, originX + actualWidth) then
+	if my approx(windowWidth, 0.6 * screenWidth) and my approx(windowX + windowWidth, originX + screenWidth) then
 		set the size of the first window to {screenWidth * 0.5, windowHeight}
 		set the position of the first window to {originX + screenWidth * 0.5 + 1, windowY}
 		
-	else if my approx(windowWidth, 0.4 * screenWidth) and my approx(windowX + windowWidth, originX + actualWidth) then
+	else if my approx(windowWidth, 0.4 * screenWidth) and my approx(windowX + windowWidth, originX + screenWidth) then
 		set the size of the first window to {screenWidth * 0.6, windowHeight}
 		set the position of the first window to {originX + screenWidth * 0.4 + 1, windowY}
 		-- since the size may not be correct for some position, do sizing again
 		set the size of the first window to {screenWidth * 0.6, windowHeight}
 		
-	else if my approx(windowWidth, 0.5 * screenWidth) and my approx(windowX + windowWidth, originX + actualWidth) then
+	else if my approx(windowWidth, 0.5 * screenWidth) and my approx(windowX + windowWidth, originX + screenWidth) then
 		set the size of the first window to {screenWidth * 0.4, windowHeight}
 		set the position of the first window to {originX + screenWidth * 0.6 + 1, windowY}
 		-- since the size may not be correct for some position, do sizing again
