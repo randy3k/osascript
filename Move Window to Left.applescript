@@ -7,6 +7,8 @@ set screenWidth to width of |size| of sizes
 set screenHeight to height of |size| of sizes
 set originX to x of origin of sizes
 set originY to y of origin of sizes
+log {sizes0}
+log {sizes}
 
 on approx(a, b)
 	set ret to ((a - b) ^ 2) ^ 0.5
@@ -21,7 +23,7 @@ tell application "System Events" to tell (process 1 where frontmost is true)
 	set windowX to item 1 of windowPos
 	set windowY to item 2 of windowPos
 	
-	if my approx(windowX + windowWidth, actualWidth) then
+	if my approx(windowX + windowWidth, originX+actualWidth) then
 		tell application "Finder" to set thefolder to (container of (path to me)) as text
 		run script (thefolder & "Move Window to Center.applescript") as alias
 		return
@@ -41,7 +43,7 @@ tell application "System Events" to tell (process 1 where frontmost is true)
 		
 	else
 		set the size of the first window to {screenWidth * 0.6, screenHeight}
-		set the position of the first window to {originX, originY}
+		set the position of the first window to {originX, 0}
 		-- since the size may not be corrent for some position, do sizing again
 		set the size of the first window to {screenWidth * 0.6, screenHeight}
 		

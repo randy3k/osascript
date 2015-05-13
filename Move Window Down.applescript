@@ -37,7 +37,7 @@ tell application "System Events" to tell (process 1 where frontmost is true)
 		return
 	end if
 	
-	if my approx(windowX + windowWidth, actualWidth) and windowWidth < screenWidth * 0.65 then
+	if my approx(windowX + windowWidth, originX+actualWidth) and windowWidth < screenWidth * 0.65 then
 		if windowHeight < screenHeight * 0.55 and windowY > screenHeight * 0.4 then
 			set the position of the first window to {windowX, originY}
 			set the size of the first window to {windowWidth, screenHeight}
