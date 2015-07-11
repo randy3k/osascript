@@ -22,6 +22,7 @@ tell application "System Events" to tell (process 1 where frontmost is true)
 	set windowHeight to item 2 of windowResolution
 	set windowX to item 1 of windowPos
 	set windowY to item 2 of windowPos
+	log windowPos
 	
 	if my approx(windowX + windowWidth, originX + screenWidth) then
 		tell application "Finder" to set thefolder to (container of (path to me)) as text
