@@ -27,10 +27,8 @@ tell application "System Events" to tell (process 1 where frontmost is true)
 	if my approx(windowX + windowWidth, originX + screenWidth) then
 		tell application "Finder" to set thefolder to (container of (path to me)) as text
 		run script (thefolder & "Move Window to Center.applescript") as alias
-		return
-	end if
-	
-	if my approx(windowWidth, 0.6 * screenWidth) and windowX is equal to originX then
+		
+	else if my approx(windowWidth, 0.6 * screenWidth) and windowX is equal to originX then
 		set the size of the first window to {screenWidth * 0.5, windowHeight}
 		set the position of the first window to {originX, windowY}
 		
