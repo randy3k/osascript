@@ -71,8 +71,10 @@ else
 	end try
 end if
 
+set thefolder to (do shell script "cd " & quoted form of thefolder & "; pwd -P") & "/"
 set done to false
 --display dialog thefolder
+
 set iTermIsRunning to my appIsRunning("iTerm2")
 if iTermIsRunning then
 	tell application "iTerm"

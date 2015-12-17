@@ -58,6 +58,7 @@ else
 	end try
 end if
 
+set thefolder to (do shell script "cd " & quoted form of thefolder & "; pwd -P") & "/"
 set detected to false
 --display dialog thefolder
 
