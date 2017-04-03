@@ -6,7 +6,7 @@ set sizes to item 1 of (current application's NSScreen's mainScreen's visibleFra
 set screenWidth to width of |size| of sizes
 set screenHeight to height of |size| of sizes
 set originX to x of origin of sizes
-set originY to y of origin of sizes
+set originY to (y of origin of sizes0) + 23
 
 on approx(a, b)
 	set ret to ((a - b) ^ 2) ^ 0.5
@@ -24,7 +24,7 @@ tell application "System Events" to tell (process 1 where frontmost is true)
 	if my approx(windowX, originX) then
 		tell application "Finder" to set thefolder to (container of (path to me)) as text
 		run script (thefolder & "Move Window to Center.applescript") as alias
-	
+		
 	else if my approx(windowWidth, 0.6 * screenWidth) and my approx(windowX + windowWidth, originX + screenWidth) then
 		set the size of the first window to {screenWidth * 0.5, windowHeight}
 		set the position of the first window to {originX + screenWidth * 0.5 + 1, windowY}

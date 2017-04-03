@@ -7,8 +7,7 @@ set screenWidth to width of |size| of sizes
 set screenHeight to height of |size| of sizes
 set originX to x of origin of sizes
 set originY to y of origin of sizes
-log {sizes0}
-log {sizes}
+
 
 on approx(a, b)
 	set ret to ((a - b) ^ 2) ^ 0.5

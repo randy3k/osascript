@@ -6,7 +6,7 @@ set sizes to item 1 of (current application's NSScreen's mainScreen's visibleFra
 set screenWidth to width of |size| of sizes
 set screenHeight to height of |size| of sizes
 set originX to x of origin of sizes
-set originY to y of origin of sizes
+set originY to (y of origin of sizes0) + 23
 
 on approx(a, b)
 	set ret to ((a - b) ^ 2) ^ 0.5
@@ -31,7 +31,7 @@ tell application "System Events" to tell (process 1 where frontmost is true)
 			set the position of the first window to {originX, originY}
 			set the size of the first window to {windowWidth, screenHeight}
 		else
-			set the position of the first window to {originX, 20 + screenHeight / 2}
+			set the position of the first window to {originX, screenHeight / 2 + 23}
 			set the size of the first window to {windowWidth, screenHeight / 2}
 		end if
 		return
@@ -42,7 +42,7 @@ tell application "System Events" to tell (process 1 where frontmost is true)
 			set the position of the first window to {windowX, originY}
 			set the size of the first window to {windowWidth, screenHeight}
 		else
-			set the position of the first window to {windowX, 20 + screenHeight / 2}
+			set the position of the first window to {windowX, screenHeight / 2 + 23}
 			set the size of the first window to {windowWidth, screenHeight / 2}
 		end if
 		return

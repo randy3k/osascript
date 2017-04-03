@@ -6,7 +6,8 @@ set sizes to item 1 of (current application's NSScreen's mainScreen's visibleFra
 set screenWidth to width of |size| of sizes
 set screenHeight to height of |size| of sizes
 set originX to x of origin of sizes
-set originY to y of origin of sizes
+set originY to (y of origin of sizes0) + 23
+
 
 on approx(a, b)
 	set ret to ((a - b) ^ 2) ^ 0.5
@@ -38,7 +39,7 @@ tell application "System Events" to tell (process 1 where frontmost is true)
 	
 	if my approx(windowX + windowWidth, originX + screenWidth) and windowWidth < screenWidth * 0.65 then
 		if windowHeight > screenHeight * 0.55 then
-			set the size of the first window to {windowWidth, screenHeight / 2}
+			set the size of the first window to {windowWidth, screenHeight / 2 }
 		else
 			set the size of the first window to {windowWidth, screenHeight}
 		end if
