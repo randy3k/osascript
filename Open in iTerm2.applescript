@@ -34,14 +34,10 @@ end frontApp
 
 on pwd_tty(tty_name)
 	-- Based on http://genbastechthoughts.wordpress.com/2012/07/10/how-to-duplicate-an-iterm-tab-using-applescript/
-	set pid to do shell script ("ps -f | grep " & tty_name & " | head -n 1 | awk '{ print $2; }'")
-	set ret to do shell script ("lsof -a -d cwd -F n -p " & pid & " | egrep -v 'p[0-9]+' | awk '{ sub(/^n/, \"\"); print; }'")
+	set pid to do shell script ("ps -f | grep " & tty_name & " | grep 'zsh\\|bash' | head -n 1 | awk '{ print $2; }'")
+	set ret to do shell script ("lsof -a -d cwd -F n -p " & pid & " | grep ^n | awk '{ sub(/^n/, \"\"); print; }'")
 	return ret
 end pwd_tty
-
-on zshIsCurrent(tty_name)
-	(length of (do shell script "ps -O tty | grep S*+ | grep zsh | grep " & tty_name & "|| true")) > 0
-end zshIsCurrent
 
 set thefrontApp to frontApp()
 
@@ -84,14 +80,10 @@ if iTermIsRunning then
 			repeat with i from ntabs to 1 by -1
 				set t to item i of tabs of w
 				repeat with s in sessions of item i of tabs of w
-					set the_name to get name of s
+					set thetitle to get name of s
 					set tty_name to do shell script "basename " & (get tty of s)
 					set working_dir to my pwd_tty(tty_name)
-					log working_dir
-					log thefolder
-					log the_name
-					log tty_name
-					if working_dir & "/" is thefolder and my zshIsCurrent(tty_name) then
+					if working_dir & "/" is thefolder and (thetitle contains "bash" or thetitle contains "zsh") then
 						activate
 						select item i of tabs of w
 						select s
@@ -115,7 +107,6 @@ if iTermIsRunning then
 	end tell
 end if
 
-log done
 if not done then
 	tell application "iTerm"
 		if (count of (windows)) is 0 then
@@ -124,7 +115,7 @@ if not done then
 			if iTermIsRunning then tell current window to create tab with default profile
 		end if
 		tell current window to tell the current session
-			write text "cd " & (do shell script "printf %q " & quoted form of thefolder)
+			write text " cd " & (do shell script "printf %q " & quoted form of thefolder) & "; clear"
 		end tell
 	end tell
 end if
