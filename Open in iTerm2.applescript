@@ -1,5 +1,3 @@
--- for iTerm 2.9
-
 on appIsRunning(appName)
 	tell application "System Events" to (name of processes) contains appName
 end appIsRunning
@@ -68,55 +66,42 @@ else
 end if
 
 set thefolder to (do shell script "cd " & quoted form of thefolder & "; pwd -P") & "/"
-set done to false
+set detected to false
 --display dialog thefolder
 
 set iTermIsRunning to my appIsRunning("iTerm2")
 if iTermIsRunning then
 	tell application "iTerm"
 		repeat with w in windows
-			set ntabs to the count (tabs of w)
-			if ntabs is 0 then exit repeat
-			repeat with i from ntabs to 1 by -1
-				set t to item i of tabs of w
-				repeat with s in sessions of item i of tabs of w
-					set thetitle to get name of s
-					set tty_name to do shell script "basename " & (get tty of s)
-					set working_dir to my pwd_tty(tty_name)
-					if working_dir & "/" is thefolder and (thetitle contains "bash" or thetitle contains "zsh") then
-						activate
-						select item i of tabs of w
-						select s
-						if (count of windows) > 1 then
-							delay 0.2
-							tell application "System Events"
-								tell process "iTerm2"
-									set frontmost to true
-									perform action "AXRaise" of (first window whose title is the_name)
-								end tell
-							end tell
-						end if
-						set done to true
-						exit repeat
-					end if
-					if done then exit repeat
-				end repeat
-				if done then exit repeat
-			end repeat
+		                if (count of (windows)) is 0 then
+                    exit repeat
+                end
+			set s to w's current tab's current session
+			set thetitle to get name of s
+			set tty_name to do shell script "basename " & (get tty of s)
+			set working_dir to my pwd_tty(tty_name)
+			if working_dir & "/" is thefolder and (thetitle contains "bash" or thetitle contains "zsh") then
+				select w
+				activate
+				if (count of windows) > 1 then
+					delay 0.2
+					tell application "System Events"
+						tell process "iTerm2"
+							set frontmost to true
+							perform action "AXRaise" of (first window whose title is thetitle)
+						end tell
+					end tell
+				end if
+				set detected to true
+				exit repeat
+			end if
 		end repeat
 	end tell
 end if
 
-if not done then
+if not detected then
 	tell application "iTerm"
+		open thefolder
 		activate
-		if (count of (windows)) is 0 then
-			create window with default profile
-		else
-			if iTermIsRunning then tell current window to create tab with default profile
-		end if
-		tell current window to tell the current session
-			write text "cd " & (do shell script "printf %q " & quoted form of thefolder)
-		end tell
 	end tell
 end if
