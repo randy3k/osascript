@@ -83,15 +83,12 @@ if iTermIsRunning then
 			if working_dir & "/" is thefolder and (thetitle contains "bash" or thetitle contains "zsh") then
 				select w
 				activate
-				if (count of windows) > 1 then
-					delay 0.2
-					tell application "System Events"
-						tell process "iTerm2"
-							set frontmost to true
-							perform action "AXRaise" of (first window whose title is thetitle)
-						end tell
+				tell application "System Events"
+					tell process "iTerm2"
+						set frontmost to true
+						perform action "AXRaise" of (first window whose title is thetitle)
 					end tell
-				end if
+				end tell
 				set detected to true
 				exit repeat
 			end if
