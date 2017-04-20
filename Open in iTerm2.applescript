@@ -73,9 +73,9 @@ set iTermIsRunning to my appIsRunning("iTerm2")
 if iTermIsRunning then
 	tell application "iTerm"
 		repeat with w in windows
-		                if (count of (windows)) is 0 then
-                    exit repeat
-                end
+			if (count of (tabs of w)) is 0 then
+				exit repeat
+			end
 			set s to w's current tab's current session
 			set thetitle to get name of s
 			set tty_name to do shell script "basename " & (get tty of s)
