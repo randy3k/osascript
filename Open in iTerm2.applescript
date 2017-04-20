@@ -116,7 +116,7 @@ if not done then
 			if iTermIsRunning then tell current window to create tab with default profile
 		end if
 		tell current window to tell the current session
-			write text " cd " & (do shell script "printf %q " & quoted form of thefolder) & "; clear"
+			write text "cd " & (do shell script "printf %q " & quoted form of thefolder)
 		end tell
 	end tell
 end if
