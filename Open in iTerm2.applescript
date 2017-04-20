@@ -1,3 +1,5 @@
+-- required iTerm 3.1
+
 on appIsRunning(appName)
 	tell application "System Events" to (name of processes) contains appName
 end appIsRunning
@@ -29,13 +31,6 @@ on frontApp()
 		name of first process whose frontmost is true
 	end tell
 end frontApp
-
-on pwd_tty(tty_name)
-	-- Based on http://genbastechthoughts.wordpress.com/2012/07/10/how-to-duplicate-an-iterm-tab-using-applescript/
-	set pid to do shell script ("ps -f | grep " & tty_name & " | grep 'zsh\\|bash' | head -n 1 | awk '{ print $2; }'")
-	set ret to do shell script ("lsof -a -d cwd -F n -p " & pid & " | grep ^n | awk '{ sub(/^n/, \"\"); print; }'")
-	return ret
-end pwd_tty
 
 set thefrontApp to frontApp()
 
@@ -69,26 +64,24 @@ set thefolder to (do shell script "cd " & quoted form of thefolder & "; pwd -P")
 set detected to false
 --display dialog thefolder
 
-set iTermIsRunning to my appIsRunning("iTerm2")
-if iTermIsRunning then
+on pwd_tty(tty_name)
+	-- Based on http://genbastechthoughts.wordpress.com/2012/07/10/how-to-duplicate-an-iterm-tab-using-applescript/
+	set pid to do shell script ("ps -f | grep " & tty_name & " | grep 'zsh\\|bash' | head -n 1 | awk '{ print $2; }'")
+	set ret to do shell script ("lsof -a -d cwd -F n -p " & pid & " | grep ^n | awk '{ sub(/^n/, \"\"); print; }'")
+	return ret
+end pwd_tty
+
+if my appIsRunning("iTerm2") then
 	tell application "iTerm"
 		repeat with w in windows
 			if (count of (tabs of w)) is 0 then
 				exit repeat
-			end
+			end if
 			set s to w's current tab's current session
 			set thetitle to get name of s
 			set tty_name to do shell script "basename " & (get tty of s)
 			set working_dir to my pwd_tty(tty_name)
 			if working_dir & "/" is thefolder and (thetitle contains "bash" or thetitle contains "zsh") then
-				select w
-				activate
-				tell application "System Events"
-					tell process "iTerm2"
-						set frontmost to true
-						perform action "AXRaise" of (first window whose title is thetitle)
-					end tell
-				end tell
 				set detected to true
 				exit repeat
 			end if
@@ -96,7 +89,15 @@ if iTermIsRunning then
 	end tell
 end if
 
-if not detected then
+if detected then
+	tell application "System Events"
+		tell process "iTerm2"
+			set frontmost to true
+			perform action "AXRaise" of (first window whose title is thetitle)
+		end tell
+	end tell
+	tell application "iterm" to activate
+else
 	tell application "iTerm"
 		open thefolder
 		activate

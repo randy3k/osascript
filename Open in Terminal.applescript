@@ -76,13 +76,11 @@ if my appIsRunning("Terminal") then
 			end try
 		end repeat
 	end tell
-	tell application "Terminal"
-		if detected then
-			activate
-		else
-			do shell script "open -a terminal " & quoted form of thefolder
-		end if
-	end tell
-else
-	do shell script "open -a terminal " & quoted form of thefolder
 end if
+
+if not detected then
+	tell application "Terminal"
+		do shell script "open -a terminal " & quoted form of thefolder
+	end tell
+end if
+
