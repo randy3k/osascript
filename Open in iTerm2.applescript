@@ -109,6 +109,7 @@ end if
 
 if not done then
 	tell application "iTerm"
+		activate
 		if (count of (windows)) is 0 then
 			create window with default profile
 		else
