@@ -43,6 +43,8 @@ if thefrontApp is "Finder" then
 			set thefolder to do shell script "echo ~/"
 		end try
 	end tell
+else if thefrontApp is "iTerm2" and appIsRunning("Sublime Text") then
+	tell application "Sublime Text" to activate
 else
 	try
 		set thefrontWinDoc to frontWinDoc(thefrontApp)
@@ -96,7 +98,7 @@ if detected then
 			perform action "AXRaise" of (first window whose title is thetitle)
 		end tell
 	end tell
-	tell application "iterm" to activate
+	tell application "iTerm" to activate
 else
 	tell application "iTerm"
 		open thefolder
