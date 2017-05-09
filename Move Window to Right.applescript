@@ -1,12 +1,26 @@
-use framework "CoreGraphics"
+use framework "AppKit"
 use scripting additions
+
+on getMainScreen()
+	set nss to current application's NSScreen
+	repeat with sc in nss's screens()
+		set f to sc's frame()
+		if f's origin's x is 0 and f's origin's y is 0 then
+			return sc
+		end if
+	end repeat
+	return 0
+end getMainScreen
+
 set sizes0 to item 1 of (current application's NSScreen's mainScreen's frame as list)
 set actualWidth to width of |size| of sizes0
+set actualHeight to height of |size| of sizes0
 set sizes to item 1 of (current application's NSScreen's mainScreen's visibleFrame as list)
 set screenWidth to width of |size| of sizes
 set screenHeight to height of |size| of sizes
 set originX to x of origin of sizes
-set originY to (y of origin of sizes0) + 23
+set originY to (my getMainScreen()'s frame()'s |size|'s height) - (y of origin of sizes) - screenHeight
+
 
 on approx(a, b)
 	set ret to ((a - b) ^ 2) ^ 0.5
@@ -20,27 +34,27 @@ tell application "System Events" to tell (process 1 where frontmost is true)
 	set windowHeight to item 2 of windowResolution
 	set windowX to item 1 of windowPos
 	set windowY to item 2 of windowPos
-	
+
 	if my approx(windowX, originX) then
 		tell application "Finder" to set thefolder to (container of (path to me)) as text
 		run script (thefolder & "Move Window to Center.applescript") as alias
-		
+
 	else if my approx(windowWidth, 0.6 * screenWidth) and my approx(windowX + windowWidth, originX + screenWidth) then
 		set the size of the first window to {screenWidth * 0.5, windowHeight}
 		set the position of the first window to {originX + screenWidth * 0.5 + 1, windowY}
-		
+
 	else if my approx(windowWidth, 0.4 * screenWidth) and my approx(windowX + windowWidth, originX + screenWidth) then
 		set the size of the first window to {screenWidth * 0.6, windowHeight}
 		set the position of the first window to {originX + screenWidth * 0.4 + 1, windowY}
 		-- since the size may not be correct for some position, do sizing again
 		set the size of the first window to {screenWidth * 0.6, windowHeight}
-		
+
 	else if my approx(windowWidth, 0.5 * screenWidth) and my approx(windowX + windowWidth, originX + screenWidth) then
 		set the size of the first window to {screenWidth * 0.4, windowHeight}
 		set the position of the first window to {originX + screenWidth * 0.6 + 1, windowY}
 		-- since the size may not be correct for some position, do sizing again
 		set the size of the first window to {screenWidth * 0.4, windowHeight}
-		
+
 	else
 		set the size of the first window to {screenWidth * 0.4, screenHeight}
 		set the position of the first window to {originX + screenWidth * 0.6 + 1, originY}
