@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>AMApplicationBuild</key>
-	<string>389</string>
+	<string>428</string>
 	<key>AMApplicationVersion</key>
-	<string>2.4</string>
+	<string>2.7</string>
 	<key>AMDocumentVersion</key>
 	<string>2</string>
 	<key>actions</key>
@@ -18,32 +18,21 @@
 					<key>Container</key>
 					<string>List</string>
 					<key>Optional</key>
-					<false/>
+					<true/>
 					<key>Types</key>
 					<array>
-						<string>com.apple.applescript.alias-object</string>
+						<string>com.apple.cocoa.path</string>
 					</array>
 				</dict>
 				<key>AMActionVersion</key>
-				<string>1.4</string>
+				<string>1.1.2</string>
 				<key>AMApplication</key>
 				<array>
 					<string>Finder</string>
 				</array>
 				<key>AMParameterProperties</key>
 				<dict>
-					<key>archiveName</key>
-					<dict/>
-					<key>archivePath</key>
-					<dict>
-						<key>isPathPopUp</key>
-						<true/>
-						<key>variableUUIDsInMenu</key>
-						<array/>
-					</dict>
-					<key>cleanFiles</key>
-					<dict/>
-					<key>deleteOriginals</key>
+					<key>fileNames</key>
 					<dict/>
 				</dict>
 				<key>AMProvides</key>
@@ -52,30 +41,22 @@
 					<string>List</string>
 					<key>Types</key>
 					<array>
-						<string>com.apple.applescript.alias-object</string>
+						<string>com.apple.cocoa.path</string>
 					</array>
 				</dict>
-				<key>AMRequiredResources</key>
-				<array/>
 				<key>ActionBundlePath</key>
-				<string>/Users/Randy/Library/Automator/Create Clean Archive.action</string>
+				<string>/System/Library/Automator/Get Specified Finder Items.action</string>
 				<key>ActionName</key>
-				<string>Create Clean Archive</string>
+				<string>Get Specified Finder Items</string>
 				<key>ActionParameters</key>
 				<dict>
-					<key>archiveName</key>
-					<string></string>
-					<key>archivePath</key>
-					<string></string>
-					<key>cleanFiles</key>
-					<integer>0</integer>
-					<key>deleteOriginals</key>
-					<integer>0</integer>
+					<key>fileNames</key>
+					<array/>
 				</dict>
 				<key>BundleIdentifier</key>
-				<string>com.mikepiontek.Automator.CreateCleanArchive</string>
+				<string>com.apple.Automator.SpecifiedFiles</string>
 				<key>CFBundleVersion</key>
-				<string>1.4</string>
+				<string>1.1.2</string>
 				<key>CanShowSelectedItemsWhenRun</key>
 				<false/>
 				<key>CanShowWhenRun</key>
@@ -85,19 +66,20 @@
 					<string>AMCategoryFilesAndFolders</string>
 				</array>
 				<key>Class Name</key>
-				<string>AMAppleScriptAction</string>
-				<key>Disabled</key>
-				<false/>
+				<string>SpecifiedFilesAction</string>
 				<key>InputUUID</key>
-				<string>F8251FFF-1C97-4893-9818-9388765E09F3</string>
+				<string>47381384-E722-484D-8A61-F5C4A906853F</string>
 				<key>Keywords</key>
-				<array/>
+				<array>
+					<string>File</string>
+					<string>Choose</string>
+					<string>Find</string>
+					<string>Get</string>
+				</array>
 				<key>OutputUUID</key>
-				<string>BC382536-1148-4ADE-975E-6F5CA0B85FDB</string>
-				<key>ShowWhenRun</key>
-				<false/>
+				<string>C58C855D-E01D-41F3-A41A-1138130C4C3D</string>
 				<key>UUID</key>
-				<string>1EA5952A-EB40-4056-948A-2FBAD91744E1</string>
+				<string>CE819B70-AC32-4813-A333-FD78F5F67106</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Finder</string>
@@ -107,9 +89,158 @@
 					<key>0</key>
 					<dict>
 						<key>default value</key>
+						<array/>
+						<key>name</key>
+						<string>fileNames</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>conversionLabel</key>
+				<integer>0</integer>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>321.000000:308.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Get Specified Finder Items.action/Contents/Resources/Base.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.cocoa.string</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>2.0.3</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>COMMAND_STRING</key>
+					<dict/>
+					<key>CheckedForUserDefaultShell</key>
+					<dict/>
+					<key>inputMethod</key>
+					<dict/>
+					<key>shell</key>
+					<dict/>
+					<key>source</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.cocoa.string</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Run Shell Script.action</string>
+				<key>ActionName</key>
+				<string>Run Shell Script</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>COMMAND_STRING</key>
+					<string>declare -a names
+declare -a parts
+declare i=0
+
+names=("$@")
+name="$1"
+while x=$(dirname "$name"); [ "$x" != "/" ]
+do
+    parts[$i]="$x"
+    i=$(($i + 1))
+    name="$x"
+done
+
+for prefix in "${parts[@]}" /
+do
+for name in "${names[@]}"
+    do
+        if [ "${name#$prefix/}" = "${name}" ]
+            then continue 2
+        fi
+    done
+    dir="$prefix"
+    break
+done
+
+cd "$dir"
+
+for file in "${names[@]}"
+do
+    zip zip-file.zip -r "${file#$dir/}" -x *.DS_Store
+done</string>
+					<key>CheckedForUserDefaultShell</key>
+					<true/>
+					<key>inputMethod</key>
+					<integer>0</integer>
+					<key>shell</key>
+					<string>/bin/bash</string>
+					<key>source</key>
+					<string></string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.RunShellScript</string>
+				<key>CFBundleVersion</key>
+				<string>2.0.3</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>RunShellScriptAction</string>
+				<key>InputUUID</key>
+				<string>DCE1C7AB-01F3-4138-84D2-0FE218E32811</string>
+				<key>Keywords</key>
+				<array>
+					<string>Shell</string>
+					<string>Script</string>
+					<string>Command</string>
+					<string>Run</string>
+					<string>Unix</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>BCD5AD19-35C6-413E-9A35-7CFFCE5368AF</string>
+				<key>UUID</key>
+				<string>C4881C60-4005-48C4-8FDC-71CA7F0921D2</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
 						<integer>0</integer>
 						<key>name</key>
-						<string>cleanFiles</string>
+						<string>inputMethod</string>
 						<key>required</key>
 						<string>0</string>
 						<key>type</key>
@@ -122,7 +253,7 @@
 						<key>default value</key>
 						<string></string>
 						<key>name</key>
-						<string>archivePath</string>
+						<string>source</string>
 						<key>required</key>
 						<string>0</string>
 						<key>type</key>
@@ -133,9 +264,9 @@
 					<key>2</key>
 					<dict>
 						<key>default value</key>
-						<string></string>
+						<false/>
 						<key>name</key>
-						<string>archiveName</string>
+						<string>CheckedForUserDefaultShell</string>
 						<key>required</key>
 						<string>0</string>
 						<key>type</key>
@@ -146,9 +277,9 @@
 					<key>3</key>
 					<dict>
 						<key>default value</key>
-						<integer>0</integer>
+						<string></string>
 						<key>name</key>
-						<string>deleteOriginals</string>
+						<string>COMMAND_STRING</string>
 						<key>required</key>
 						<string>0</string>
 						<key>type</key>
@@ -156,20 +287,43 @@
 						<key>uuid</key>
 						<string>3</string>
 					</dict>
+					<key>4</key>
+					<dict>
+						<key>default value</key>
+						<string>/bin/sh</string>
+						<key>name</key>
+						<string>shell</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>4</string>
+					</dict>
 				</dict>
+				<key>conversionLabel</key>
+				<integer>0</integer>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.500000:412.000000</string>
+				<string>321.000000:491.000000</string>
 				<key>nibPath</key>
-				<string>/Users/Randy/Library/Automator/Create Clean Archive.action/Contents/Resources/English.lproj/main.nib</string>
+				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/English.lproj/main.nib</string>
 			</dict>
 			<key>isViewVisible</key>
 			<true/>
 		</dict>
 	</array>
 	<key>connectors</key>
-	<dict/>
+	<dict>
+		<key>2B3EFEE4-617C-4713-9D69-173AC1120C22</key>
+		<dict>
+			<key>from</key>
+			<string>CE819B70-AC32-4813-A333-FD78F5F67106 - CE819B70-AC32-4813-A333-FD78F5F67106</string>
+			<key>to</key>
+			<string>C4881C60-4005-48C4-8FDC-71CA7F0921D2 - C4881C60-4005-48C4-8FDC-71CA7F0921D2</string>
+		</dict>
+	</dict>
 	<key>state</key>
 	<dict>
 		<key>AMLogTabViewSelectedIndex</key>
