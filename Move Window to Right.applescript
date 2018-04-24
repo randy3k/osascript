@@ -5,21 +5,21 @@ on getMainScreen()
 	set nss to current application's NSScreen
 	repeat with sc in nss's screens()
 		set f to sc's frame()
-		if f's origin's x is 0 and f's origin's y is 0 then
-			return sc
+		if item 1 of item 1 of f is 0 and item 2 of item 1 of f is 0 then
+			return f
 		end if
 	end repeat
 	return 0
 end getMainScreen
 
-set sizes0 to item 1 of (current application's NSScreen's mainScreen's frame as list)
-set actualWidth to width of |size| of sizes0
-set actualHeight to height of |size| of sizes0
-set sizes to item 1 of (current application's NSScreen's mainScreen's visibleFrame as list)
-set screenWidth to width of |size| of sizes
-set screenHeight to height of |size| of sizes
-set originX to x of origin of sizes
-set originY to (my getMainScreen()'s frame()'s |size|'s height) - (y of origin of sizes) - screenHeight
+set actualScreen to current application's NSScreen's mainScreen's frame()
+set actualWidth to item 1 of item 2 of actualScreen
+set actualHeight to item 2 of item 2 of actualScreen
+set visibleScreen to current application's NSScreen's mainScreen's visibleFrame()
+set screenWidth to item 1 of item 2 of visibleScreen
+set screenHeight to item 2 of item 2 of visibleScreen
+set originX to item 1 of item 1 of visibleScreen
+set originY to ((item 2 of item 2 of my getMainScreen()) - (item 2 of item 1 of visibleScreen) - screenHeight)
 
 
 on approx(a, b)
