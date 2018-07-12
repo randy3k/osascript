@@ -81,8 +81,5 @@ if my appIsRunning("Terminal") then
 end if
 
 if not detected then
-	tell application "Terminal"
-		do shell script "open -a terminal " & quoted form of thefolder
-	end tell
+	do shell script "open -a terminal " & quoted form of thefolder
 end if
-
