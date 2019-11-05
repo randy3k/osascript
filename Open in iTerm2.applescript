@@ -43,8 +43,8 @@ if thefrontApp is "Finder" then
 			set thefolder to do shell script "echo ~/"
 		end try
 	end tell
-else if thefrontApp is "iTerm2" and appIsRunning("Sublime Text") then
-	tell application "Sublime Text" to activate
+-- else if thefrontApp is "iTerm2" and appIsRunning("Sublime Text") then
+-- 	tell application "Sublime Text" to activate
 else
 	try
 		set thefrontWinDoc to frontWinDoc(thefrontApp)
